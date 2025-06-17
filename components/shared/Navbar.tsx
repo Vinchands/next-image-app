@@ -1,8 +1,10 @@
 'use client'
 import Link from 'next/link'
+import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { usePathname } from 'next/navigation'
 import { useCallback } from 'react'
+import logo from '@/public/logo.svg'
 
 export default function Navbar() {
   
@@ -15,6 +17,7 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 flex items-center justify-between md:justify-around p-3 bg-card shadow">
       <div className="flex items-center gap-x-2">
+        <Image src={logo} alt="imagenation" className="w-10" />
         <span className="font-bold text-2xl">imagenation</span>
       </div>
       <nav className="flex items-center gap-x-3">
