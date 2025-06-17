@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils"
 
 type TypographyProps = React.HTMLAttributes<HTMLElement>
 
-export function H1({ className, ...props }: TypographyProps) {
+export function Head1({ className, ...props }: TypographyProps) {
   return (
     <h1
       className={cn(
@@ -15,7 +15,7 @@ export function H1({ className, ...props }: TypographyProps) {
   )
 }
 
-export function H2({ className, ...props }: TypographyProps) {
+export function Head2({ className, ...props }: TypographyProps) {
   return (
     <h2
       className={cn(
@@ -27,7 +27,7 @@ export function H2({ className, ...props }: TypographyProps) {
   )
 }
 
-export function H3({ className, ...props }: TypographyProps) {
+export function Head3({ className, ...props }: TypographyProps) {
   return (
     <h3
       className={cn("scroll-m-20 text-2xl font-semibold tracking-tight", className)}
@@ -36,7 +36,7 @@ export function H3({ className, ...props }: TypographyProps) {
   )
 }
 
-export function H4({ className, ...props }: TypographyProps) {
+export function Head4({ className, ...props }: TypographyProps) {
   return (
     <h4
       className={cn("scroll-m-20 text-xl font-semibold tracking-tight", className)}
@@ -45,7 +45,7 @@ export function H4({ className, ...props }: TypographyProps) {
   )
 }
 
-export function P({ className, ...props }: TypographyProps) {
+export function Par({ className, ...props }: TypographyProps) {
   return (
     <p className={cn("leading-7 [&:not(:first-child)]:mt-6", className)} {...props} />
   )
