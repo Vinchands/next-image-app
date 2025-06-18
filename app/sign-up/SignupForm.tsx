@@ -1,7 +1,8 @@
 'use client'
+import Link from 'next/link'
 import { Label } from '@/components/ui/label'
 import { Input } from '@/components/ui/input'
-import { PasswordInput } from '@/components/ui/password-input'
+import { PasswordInput } from '@/components/ui/PasswordInput'
 import { Button } from '@/components/ui/button'
 import { useActionState, useState } from 'react'
 import { LoaderCircle } from 'lucide-react'
@@ -58,11 +59,15 @@ export default function SignupForm() {
       <div className="space-y-3 text-center">
         <p className="text-sm text-muted-foreground">
           By creating and account you agree to our{' '}
-          <Button variant="link" type="button" className="p-0">Terms of Service</Button>
+          <Button variant="link" type="button" className="p-0" asChild>
+            <Link href="/tos">Terms of Service</Link>
+          </Button>
         </p>
         <p className="text-sm text-muted-foreground">
           Have an account?{' '}
-          <Button variant="link" type="button" className="p-0">Sign in</Button>
+          <Button variant="link" type="button" className="p-0" asChild>
+            <Link href="/sign-in">Sign in</Link>
+          </Button>
         </p>
       </div>
     </form>
