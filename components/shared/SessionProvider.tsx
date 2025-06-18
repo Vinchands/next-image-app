@@ -1,10 +1,10 @@
 'use client'
-import { User } from '@prisma/client'
+import { SafeUser } from '@/lib/definitions'
 import { createContext } from 'react'
 
 type UserSession = {
   isAuth: boolean
-  user: User | null
+  user: SafeUser | null
 }
 
 export const SessionContext = createContext<UserSession>({
