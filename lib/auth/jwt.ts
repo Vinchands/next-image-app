@@ -1,6 +1,6 @@
 import 'server-only'
 import { SignJWT, jwtVerify } from 'jose'
-import type { SessionPayload, TokenType } from '@/lib/auth/definitions'
+import type { SessionPayload, TokenType } from '@/lib/definitions'
 
 const encodedAccessKey = new TextEncoder().encode(process.env.JWT_ACCESS_SECRET)
 const encodedRefreshKey = new TextEncoder().encode(process.env.JWT_REFRESH_SECRET)

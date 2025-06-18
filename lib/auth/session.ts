@@ -1,6 +1,6 @@
 import 'server-only'
 import { generateToken, parseToken } from '@/lib/auth/jwt'
-import type { TokenType } from '@/lib/auth/definitions'
+import type { TokenType } from '@/lib/definitions'
 import { cookies } from 'next/headers'
 
 export async function createSession(userId: string, type: TokenType) {
