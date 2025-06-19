@@ -27,7 +27,7 @@ export default function SignupForm() {
           onChange={e => setName(e.target.value)}
           required
         />
-        {state?.errors.name && <span className="text-sm text-destructive">{state.errors.name}</span>}
+        {state?.errors.name && <p className="text-sm text-center text-destructive">{state.errors.name[0]}</p>}
       </div>
       <div className="space-y-2">
         <Label>Email</Label>
@@ -39,12 +39,12 @@ export default function SignupForm() {
           onChange={e => setEmail(e.target.value)}
           required
         />
-        {state?.errors.email && <span className="text-sm text-destructive">{state.errors.email}</span>}
+        {state?.errors.email && <p className="text-sm text-center text-destructive">{state.errors.email[0]}</p>}
       </div>
       <div className="space-y-2">
         <Label>Password</Label>
         <PasswordInput name="password" required />
-        {state?.errors.password && <span className="text-sm text-destructive">{state.errors.password}</span>}
+        {state?.errors.password && <p className="text-sm text-center text-destructive">{state.errors.password[0]}</p>}
       </div>
       
       <Button disabled={loading}>
@@ -58,7 +58,7 @@ export default function SignupForm() {
       </Button>
       <div className="space-y-3 text-center">
         <p className="text-sm text-muted-foreground">
-          By creating and account you agree to our{' '}
+          By creating an account you agree to our{' '}
           <Button variant="link" type="button" className="p-0" asChild>
             <Link href="/tos">Terms of Service</Link>
           </Button>
