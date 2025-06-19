@@ -1,13 +1,21 @@
-import { Head1, Head2, Head3, Head4, Par } from '@/components/ui/typography'
+import SigninForm from './SigninForm'
+import bg from '@/public/bg.jpg'
 
-export default function Profile() {
+export default function Signup() {
   return (
-    <>
-      <Head1>Lorem ipsum</Head1>
-      <Head2>Dolor sit amet</Head2>
-      <Head3>Consectetur</Head3>
-      <Head4>Adipisicing elit</Head4>
-      <Par>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam repudiandae explicabo at tempora consequuntur architecto sunt obcaecati quidem velit eligendi hic, vero nostrum rerum tenetur sequi, ipsam amet itaque dolor.</Par>
-    </>
+    <div className="min-h-screen grid grid-cols-1 lg:grid-cols-2 justify-center">
+      <div className="flex items-center justify-center inset-0">
+        <SigninForm />
+      </div>
+      <div
+        style={{
+          backgroundImage: `url('${bg.src}')`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundAttachment: 'fixed'
+        }}
+        className="hidden lg:inline"
+      />
+    </div>
   )
 }
