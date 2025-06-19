@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Mulish } from "next/font/google";
 import Navbar from '@/components/shared/Navbar';
+import Footer from '@/components/shared/Footer';
 import SessionWrapper from '@/components/shared/SessionWrapper';
 import "./globals.css";
 
@@ -29,6 +30,7 @@ export default function RootLayout({
           <main className="max-w-[1536px] container min-h-screen px-3 mx-auto">
             {children}
           </main>
+          <Footer />
         </SessionWrapper>
       </body>
     </html>
