@@ -14,7 +14,6 @@ import {
 import { usePathname } from 'next/navigation'
 import { useCallback } from 'react'
 import { Ellipsis } from 'lucide-react'
-import { useSession } from '@/hooks/useSession'
 
 const links = [
   {
@@ -28,16 +27,15 @@ const links = [
     href: '/images',
   },
   {
-    name: 'Terms of Service',
-    alias: 'Terms',
-    href: '/tos',
+    name: 'License',
+    alias: 'License',
+    href: '/license',
   },
 ]
 
 export default function MainNavigation() {
   
   const path = usePathname()
-  const { user } = useSession()
   
   const isActive = useCallback((href: string) => {
     return path === href
@@ -47,7 +45,13 @@ export default function MainNavigation() {
     <nav className="flex items-center gap-x-3">
       {
         links.map(link => (
-          <Link key={link.name} href={link.href} className="not-first:hidden not-first:md:inline">{link.name}</Link>
+          <Link
+            key={link.name}
+            href={link.href}
+            className={`not-[:nth-child(2)]:hidden md:inline ${isActive(link.href)? 'font-bold' : 'font-medium'} hover:font-bold`}
+          >
+            {link.name}
+          </Link>
         ))
       }
       <AuthComponent
@@ -60,9 +64,17 @@ export default function MainNavigation() {
           </>
         )}
         fallback={
-          <Button asChild>
-            <Link href="/sign-up">Join Us</Link>
-          </Button>
+          <>
+            <Link
+              href="/sign-in"
+              className={`${isActive('/sign-in')? 'font-bold' : 'font-medium'} hover:font-bold`}
+            >
+              Sign in
+            </Link>
+            <Button asChild>
+              <Link href="/sign-up">Join Us</Link>
+            </Button>
+          </>
         }
       />
       <DropdownMenu>
@@ -70,7 +82,7 @@ export default function MainNavigation() {
           <Ellipsis />
         </DropdownMenuTrigger>
         <DropdownMenuContent>
-          <DropdownMenuLabel>Menu</DropdownMenuLabel>
+          <DropdownMenuLabel className="font-bold">Menu</DropdownMenuLabel>
           <DropdownMenuGroup>
             {
               links.map(link => (
