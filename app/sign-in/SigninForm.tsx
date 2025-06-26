@@ -24,16 +24,19 @@ export default function SigninForm() {
           placeholder="johndoe@example.com"
           value={email}
           onChange={e => setEmail(e.target.value)}
+          autoFocus
           required
         />
       </div>
       <div className="space-y-2">
         <Label>Password</Label>
         <PasswordInput name="password" required />
-        {state?.errors.password && <p className="text-sm text-center text-destructive">{state.errors.password[0]}</p>}
+        <Button variant="link" type="button" className="p-0" asChild>
+          <Link href="/forget-password">Forget password</Link>
+        </Button>
+        {state?.errors.password && <p className="text-sm text-center text-destructive">{state.errors.password}</p>}
       </div>
-      
-      <Button disabled={loading}>
+      <Button type="submit" disabled={loading}>
         {
           loading? (
             <>
