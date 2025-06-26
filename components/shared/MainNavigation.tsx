@@ -9,7 +9,8 @@ import {
   DropdownMenuContent,
   DropdownMenuLabel,
   DropdownMenuGroup,
-  DropdownMenuItem
+  DropdownMenuItem,
+  DropdownMenuSeparator
 } from '@/components/ui/dropdown-menu'
 import { usePathname } from 'next/navigation'
 import { useCallback } from 'react'
@@ -48,7 +49,7 @@ export default function MainNavigation() {
           <Link
             key={link.name}
             href={link.href}
-            className={`not-[:nth-child(2)]:hidden md:inline ${isActive(link.href)? 'font-bold' : 'font-medium'} hover:font-bold`}
+            className={`max-md:not-[:nth-child(2)]:hidden ${isActive(link.href)? 'font-bold pointer-events-none' : 'font-medium'} hover:font-bold`}
           >
             {link.name}
           </Link>
@@ -83,6 +84,7 @@ export default function MainNavigation() {
         </DropdownMenuTrigger>
         <DropdownMenuContent>
           <DropdownMenuLabel className="font-bold">Menu</DropdownMenuLabel>
+          <DropdownMenuSeparator />
           <DropdownMenuGroup>
             {
               links.map(link => (
