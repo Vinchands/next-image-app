@@ -25,6 +25,7 @@ export default function SignupForm() {
           placeholder="John Doe"
           value={name}
           onChange={e => setName(e.target.value)}
+          autoFocus
           required
         />
         {state?.errors.name && <p className="text-sm text-center text-destructive">{state.errors.name[0]}</p>}
