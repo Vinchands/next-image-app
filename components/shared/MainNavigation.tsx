@@ -72,7 +72,11 @@ export default function MainNavigation() {
             >
               Sign in
             </Link>
-            <Button asChild>
+            <Button
+              variant={isActive('/sign-up')? 'secondary' : 'default'}
+              className={isActive('/sign-up')? 'pointer-events-none' : 'pointer-events-auto'}
+              asChild
+            >
               <Link href="/sign-up">Join Us</Link>
             </Button>
           </>
