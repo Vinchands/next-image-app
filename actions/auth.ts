@@ -5,6 +5,23 @@ import prisma from '@/lib/prisma'
 import { createSession, deleteSession } from '@/lib/auth/session'
 import { redirect } from 'next/navigation'
 
+export type FormState =
+  | {
+      errors?: {
+        name?: string[]
+        email?: string[]
+        password?: string[]
+      },
+      success?: {
+        name?: string[]
+        email?: string[]
+        password?: string[]
+      },
+      message?: string
+    }
+  | undefined
+
+
 const SignupSchema = z.object({
   name: z
     .string()
@@ -24,27 +41,6 @@ const SignupSchema = z.object({
     })
     .trim(),
 })
-
-const SigninSchema = z.object({
-  email: z
-    .string()
-    .email({ message: 'Please enter a valid email.' })
-    .trim(),
-  password: z
-    .string()
-    .min(1, { message: 'Password is required.' })
-})
-
-export type FormState =
-  | {
-      errors?: {
-        name?: string[]
-        email?: string[]
-        password?: string[]
-      }
-      message?: string
-    }
-  | undefined
 
 export async function signup(state: FormState, formData: FormData) {
   const validation = SignupSchema.safeParse(Object.fromEntries(formData))
@@ -81,6 +77,17 @@ export async function signup(state: FormState, formData: FormData) {
   
   redirect('/profile')
 }
+
+
+const SigninSchema = z.object({
+  email: z
+    .string()
+    .email({ message: 'Please enter a valid email.' })
+    .trim(),
+  password: z
+    .string()
+    .min(1, { message: 'Password is required.' })
+})
 
 export async function signin(state: FormState, formData: FormData) {
   const validation = SigninSchema.safeParse(Object.fromEntries(formData))
@@ -122,4 +129,44 @@ export async function signin(state: FormState, formData: FormData) {
 export async function signout() {
   await deleteSession()
   redirect('/')
+}
+
+const ResetPasswordSchema = z.object({
+  email: z
+    .string()
+    .email({ message: 'Please enter a valid email.' })
+    .trim(),
+})
+
+export async function resetPassword(state: FormState, formData: FormData): Promise<FormState> {
+  
+  const validation = ResetPasswordSchema.safeParse(Object.fromEntries(formData))
+  
+  if (!validation.success) {
+    return {
+      errors: validation.error.flatten().fieldErrors,
+    }
+  }
+  
+  const { email } = validation.data
+  
+  const user = await prisma.user.findFirst({
+    where: { email }
+  })
+  
+  if (!user) {
+    return {
+      errors: {
+        email: ['No user found with this email.']
+      }
+    }
+  }
+  
+  // TODO: Add real email verification here...
+  
+  return {
+    success: {
+      email: ['Verification email already sent.']
+    }
+  }
 }
