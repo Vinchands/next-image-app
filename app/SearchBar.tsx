@@ -8,38 +8,31 @@ import { useRouter } from 'next/navigation'
 export default function SearchBar() {
   
   const router = useRouter()
-  const [text, setText] = useState('')
-  const searchUrl = `/images?search=${encodeURIComponent(text)}`
+  const [query, setQuery] = useState('')
+  const searchURI = `/images?search=${encodeURIComponent(query)}`
   
-  function handleSearch() {
-    router.push(searchUrl)
-  }
-  
-  function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
-    if (e.key === 'Enter' && text) {
-      e.preventDefault()
-      handleSearch()
-    }
+  function handleSearch(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+    router.push(searchURI)
   }
   
   return (
-    <div className="w-full max-w-2xl flex items-center text-black">
+    <form onSubmit={handleSearch} className="w-full max-w-2xl flex items-center text-black">
       <Input
         type="text"
         placeholder="What are you looking for?"
-        value={text}
-        onChange={(e) => setText(e.target.value)}
-        onKeyDown={handleKeyDown}
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
         className={`bg-card rounded-r-none focus-visible:ring-0 focus-visible:border-0`}
       />
       <Button
         variant="secondary"
+        type="submit"
         className="rounded-l-none"
-        onClick={handleSearch}
-        disabled={!text}
+        disabled={!query}
       >
         <Search />
       </Button>
-    </div>
+    </form>
   )
 }
