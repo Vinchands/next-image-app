@@ -1,4 +1,4 @@
-import SearchBar from './SearchBar'
+import SearchBar from '@/components/shared/SearchBar'
 import bg from '@/public/city.png'
 
 export default function Hero() {
