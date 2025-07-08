@@ -2,7 +2,7 @@
 import Link from 'next/link'
 import { Label } from '@/components/ui/label'
 import { Input } from '@/components/ui/input'
-import { PasswordInput } from '@/components/ui/PasswordInput'
+import { PasswordInput } from '@/components/shared/PasswordInput'
 import { Button } from '@/components/ui/button'
 import { useActionState, useState } from 'react'
 import { LoaderCircle } from 'lucide-react'
