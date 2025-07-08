@@ -34,7 +34,7 @@ export default function RootLayout({
             richColors
           />
           <Navbar />
-          <main className="max-w-[1536px] container min-h-screen px-3 mx-auto">
+          <main className="min-h-screen">
             {children}
           </main>
           <Footer />
