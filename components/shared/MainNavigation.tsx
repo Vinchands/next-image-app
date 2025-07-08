@@ -1,7 +1,7 @@
 'use client'
 import Link from 'next/link'
 import AuthComponent from '@/components/ui/AuthComponent'
-import UserAvatar from '@/components/ui/UserAvatar'
+import UserAvatar from '@/components/shared/UserAvatar'
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
@@ -18,13 +18,8 @@ import { Ellipsis } from 'lucide-react'
 
 const links = [
   {
-    name: 'Home',
-    alias: 'Home',
-    href: '/',
-  },
-  {
-    name: 'Images',
-    alias: 'Images',
+    name: 'Discover',
+    alias: 'Discover',
     href: '/images',
   },
   {
@@ -32,6 +27,21 @@ const links = [
     alias: 'License',
     href: '/license',
   },
+  {
+    name: 'Report Issue',
+    alias: 'Report',
+    href: '/report',
+  },
+  {
+    name: 'About Us',
+    alias: 'About',
+    href: '/about',
+  },
+  {
+    name: 'Terms of Service',
+    alias: 'Terms',
+    href: '/terms',
+  }
 ]
 
 export default function MainNavigation() {
@@ -45,11 +55,11 @@ export default function MainNavigation() {
   return (
     <nav className="flex items-center gap-x-3">
       {
-        links.map(link => (
+        links.slice(0, 2).map(link => (
           <Link
             key={link.name}
             href={link.href}
-            className={`max-md:not-[:nth-child(2)]:hidden ${isActive(link.href)? 'font-bold pointer-events-none' : 'font-medium'} hover:font-bold`}
+            className={`max-sm:not-first:hidden ${isActive(link.href)? 'font-bold pointer-events-none' : 'font-medium'} hover:font-bold`}
           >
             {link.name}
           </Link>
@@ -65,31 +75,39 @@ export default function MainNavigation() {
           </>
         )}
         fallback={
-          <>
-            <Link
-              href="/sign-in"
-              className={`${isActive('/sign-in')? 'font-bold' : 'font-medium'} hover:font-bold`}
-            >
-              Sign in
-            </Link>
-            <Button
-              variant={isActive('/sign-up')? 'secondary' : 'default'}
-              className={isActive('/sign-up')? 'pointer-events-none' : 'pointer-events-auto'}
-              asChild
-            >
-              <Link href="/sign-up">Join Us</Link>
-            </Button>
-          </>
+          <Button
+            variant={isActive('/sign-up')? 'secondary' : 'default'}
+            className={isActive('/sign-up')? 'pointer-events-none' : 'pointer-events-auto'}
+            asChild
+          >
+            <Link href="/sign-up">Join Us</Link>
+          </Button>
         }
       />
       <DropdownMenu>
-        <DropdownMenuTrigger className="md:hidden">
+        <DropdownMenuTrigger>
           <Ellipsis />
         </DropdownMenuTrigger>
         <DropdownMenuContent>
           <DropdownMenuLabel className="font-bold">Menu</DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
+            <AuthComponent
+              onAuth={user => (
+                <>
+                  <DropdownMenuItem asChild>
+                    <Link href="/images/me">My Images</Link>
+                  </DropdownMenuItem>
+                </>
+              )}
+              fallback={
+                <>
+                  <DropdownMenuItem asChild>
+                    <Link href="/sign-in">Sign in</Link>
+                  </DropdownMenuItem>
+                </>
+              }
+            />
             {
               links.map(link => (
                 <DropdownMenuItem key={link.name} asChild>
