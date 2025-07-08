@@ -1,6 +1,6 @@
 'use client'
 import { cn } from '@/lib/utils'
-import ActionAlert from '@/components/ui/ActionAlert'
+import ActionAlert from '@/components/shared/ActionAlert'
 import { Button } from '@/components/ui/button'
 import { signout } from '@/actions/auth'
 

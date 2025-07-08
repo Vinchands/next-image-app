@@ -8,7 +8,7 @@ import {
   DropdownMenuGroup,
   DropdownMenuItem
 } from '@/components/ui/dropdown-menu'
-import SignoutButton from '@/components/ui/SignoutButton'
+import SignoutButton from '@/components/shared/SignoutButton'
 import { getInitials } from '@/lib/utils'
 import { SafeUser } from '@/lib/definitions'
 import icon from '@/public/user.png'
