@@ -1,7 +1,7 @@
 import type { User } from '@prisma/client'
 import type { SafeUser } from '@/lib/definitions'
 
-export function getSafeUser(user: User): SafeUser {
+export function toSafeUser(user: User): SafeUser {
   return {
     id: user.id,
     name: user.name,
