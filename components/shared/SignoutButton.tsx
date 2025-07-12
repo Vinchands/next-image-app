@@ -13,6 +13,7 @@ export default function SignoutButton({ children, className }: SignoutButtonProp
   return (
     <ActionAlert
       title="Are you sure?"
+      description="You can sign in again anytime."
       renderTrigger={
         <button className={cn('text-destructive', className)}>{children}</button>
       }
