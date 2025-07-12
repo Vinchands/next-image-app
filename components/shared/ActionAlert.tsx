@@ -7,7 +7,6 @@ import {
   AlertDialogTitle,
   AlertDialogDescription,
   AlertDialogCancel,
-  AlertDialogAction
 } from '@/components/ui/alert-dialog'
 
 type ActionAlertProps = {
@@ -33,7 +32,7 @@ export default function ActionAlert({
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction asChild>{renderAction}</AlertDialogAction>
+          {renderAction}
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
