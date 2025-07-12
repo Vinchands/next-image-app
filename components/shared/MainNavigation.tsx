@@ -40,7 +40,7 @@ const links = [
   {
     name: 'Terms of Service',
     alias: 'Terms',
-    href: '/terms',
+    href: '/tos',
   }
 ]
 
@@ -68,7 +68,11 @@ export default function MainNavigation() {
       <AuthComponent
         onAuth={user => (
           <>
-            <Button asChild>
+            <Button
+              variant={isActive('/upload')? 'secondary' : 'default'}
+              className={isActive('/upload')? 'pointer-events-none' : 'pointer-events-auto'}
+              asChild
+            >
               <Link href="/upload">Upload</Link>
             </Button>
             <UserAvatar user={user} />
@@ -93,7 +97,7 @@ export default function MainNavigation() {
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
             <AuthComponent
-              onAuth={user => (
+              onAuth={() => (
                 <>
                   <DropdownMenuItem asChild>
                     <Link href="/images/me">My Images</Link>
