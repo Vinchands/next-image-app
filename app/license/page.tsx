@@ -1,8 +1,9 @@
+import Container from '@/components/ui/container'
 import { H1, H3, P } from '@/components/ui/typography'
 
 export default function License() {
   return (
-    <section className="max-w-2xl space-y-6 px-4 py-8 mx-auto">
+    <Container size="lg" className="space-y-5 py-8">
       <H1>License</H1>
       
       <P>
@@ -28,6 +29,6 @@ export default function License() {
       <P>
         While we strive to ensure that all content on this site is safe to use, we cannot guarantee that all content is free of rights. Please use responsibly.
       </P>
-    </section>
+    </Container>
   )
 }

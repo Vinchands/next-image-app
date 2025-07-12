@@ -1,7 +1,10 @@
+import Container from '@/components/ui/container'
+import UploadForm from './UploadForm'
+
 export default function Upload() {
   return (
-    <>
-      Upload Page
-    </>
+    <Container className="p-3">
+      <UploadForm />
+    </Container>
   )
 }
