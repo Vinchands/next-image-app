@@ -1,7 +1,7 @@
 'use server'
 import prisma from '@/lib/prisma'
-import { put } from '@vercel/blob'
-import { redirect } from 'next/navigation'
+import { generateBlurDataUrl, resizeImage } from '@/lib/sharp'
+import { put, type PutCommandOptions } from '@vercel/blob'
 import { z } from 'zod'
 
 export type FormState =
@@ -38,12 +38,28 @@ export async function uploadImage(state: FormState, formData: FormData) {
   const { file, title } = validation.data
   const userId = formData.get('userId')
   
-  const { url } = await put(`images/${file.name}`, file, { access: 'public' })
+  // Convert file to buffer
+  const arrayBuffer = await file.arrayBuffer()
+  const originalBuffer = Buffer.from(arrayBuffer)
+  
+  // Resize and blur (image optimization process)
+  const previewImageBuffer = await resizeImage(originalBuffer, { width: 640 })
+  const blurImageUrl = await generateBlurDataUrl(originalBuffer)
+  
+  // Upload files
+  const uploadOptions: PutCommandOptions = { access: 'public', addRandomSuffix: true }
+  
+  const [preview, download] = await Promise.all([
+    put(`images/${file.name}_preview`, previewImageBuffer, uploadOptions),
+    put(`images/${file.name}_download`, originalBuffer, uploadOptions)
+  ])
   
   await prisma.image.create({
     data: {
       title,
-      url,
+      blurUrl: blurImageUrl,
+      previewUrl: preview.url,
+      downloadUrl: download.url,
       userId: userId as string
     }
   })
