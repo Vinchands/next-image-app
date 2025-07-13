@@ -29,12 +29,14 @@ model User {
 }
 
 model Image {
-  id        String   @id @default(ulid())
-  title     String
-  url       String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now()) @updatedAt
-  userId    String?
+  id          String   @id @default(ulid())
+  title       String
+  blurUrl     String
+  previewUrl  String
+  downloadUrl String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now()) @updatedAt
+  userId      String?
 
   user  User?  @relation(fields: [userId], references: [id], onUpdate: Cascade, onDelete: SetNull)
   likes Like[]
