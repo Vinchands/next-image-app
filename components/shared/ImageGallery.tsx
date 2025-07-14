@@ -1,12 +1,12 @@
-import Image from 'next/image'
+import Link from 'next/link'
 import RenderList from '@/components/ui/RenderList'
+import ImageCard from '@/components/shared/ImageCard'
 import { Button } from '@/components/ui/button'
 import { H3 } from '@/components/ui/typography'
-import { type Image as ImageType } from '@prisma/client'
-import Link from 'next/link'
+import type { ImageDetail } from '@/lib/definitions'
 
 type ImageGalleryProps = {
-  images: ImageType[]
+  images: ImageDetail[]
   limit?: number
 }
 
@@ -32,17 +32,7 @@ export default function ImageGallery({ images }: ImageGalleryProps) {
       <RenderList
         items={images}
         getKey={image => image.id}
-        renderItem={image => (
-          <div className="relative w-full h-64 mb-3 bg-secondary rounded-2xl">
-            <Image
-              src={image.url}
-              alt={image.title}
-              sizes="(max-width: 768px) 100vw, 33vw"
-              className="rounded-2xl object-cover"
-              fill
-            />
-          </div>
-        )}
+        renderItem={image => <ImageCard image={image} />}
       />
     </section>
   )
