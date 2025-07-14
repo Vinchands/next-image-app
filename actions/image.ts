@@ -70,3 +70,27 @@ export async function uploadImage(state: FormState, formData: FormData) {
     }
   }
 }
+
+export async function toggleLike(userId: string, imageId: string) {
+  const existing = await prisma.like.findUnique({
+    where: {
+      userId_imageId: { userId, imageId }
+    }
+  })
+  
+  if (existing) {
+    await prisma.like.delete({
+      where: {
+        id: existing.id
+      }
+    })
+    
+    return { like: false }
+  }
+  
+  await prisma.like.create({
+    data: { userId, imageId }
+  })
+  
+  return { like: true }
+}
