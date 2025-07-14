@@ -1,7 +1,19 @@
 import prisma from '@/lib/prisma'
-import type { Image, Prisma } from '@prisma/client'
+import type { ImageDetail } from '@/lib/definitions'
+import type { Prisma } from '@prisma/client'
 
-export async function getImages(options?: Prisma.ImageFindManyArgs): Promise<Image[]> {
-  const images = await prisma.image.findMany(options)
+export async function getImagesWithDetail(options?: Omit<Prisma.ImageFindManyArgs, 'include'>): Promise<ImageDetail[]> {
+  const images = await prisma.image.findMany({
+    include: {
+      user: {
+        omit: { password: true }
+      },
+      likes: true,
+      _count: {
+        select: { likes: true }
+      }
+    },
+    ...options
+  })
   return images
 }
