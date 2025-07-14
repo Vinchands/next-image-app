@@ -40,12 +40,6 @@ export default function About() {
           {' '} for the source code.
         </P>
         
-        <H2>Limitations 🚧</H2>
-        <P>
-          Due to the limited resource that are used to build this site, we are not able to guarantee the availability of the application and the data inside.
-          Please not to make this site as your main platform, especially for images uploading, in order to prevent any form of data lost or corruptions.
-        </P>
-        
         <H2>Team Behind 🧑🏻‍💻</H2>
         <P>
           To be honest, this site is created alone by myself, Kevin. I developed this site as one of my portofolio projects. You can know more about me and my social media on my{' '}
