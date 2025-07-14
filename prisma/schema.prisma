@@ -54,5 +54,6 @@ model Like {
   user  User  @relation(fields: [userId], references: [id], onUpdate: Cascade, onDelete: Cascade)
   image Image @relation(fields: [imageId], references: [id], onUpdate: Cascade, onDelete: Cascade)
 
+  @@unique([userId, imageId])
   @@map("likes")
 }
