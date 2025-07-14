@@ -32,7 +32,7 @@ export default function SigninForm() {
         <Label>Password</Label>
         <PasswordInput name="password" required />
         <Button variant="link" type="button" className="p-0" asChild>
-          <Link href="/forget-password">Forget password</Link>
+          <Link href="/forgot-password">Forgot password?</Link>
         </Button>
         {state?.errors.password && <p className="text-sm text-center text-destructive">{state.errors.password}</p>}
       </div>
