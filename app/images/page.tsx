@@ -9,7 +9,7 @@ export default async function Images() {
   const images = await getImages()
   
   return (
-    <Container size="xl" className="py-8">
+    <Container className="py-8">
       <div className="space-y-5 mb-5">
         <H1>Discover</H1>
         <SearchBar basePath="/images" />
