@@ -34,7 +34,7 @@ export default function RootLayout({
             richColors
           />
           <Navbar />
-          <main className="min-h-screen">
+          <main className="min-h-[calc(100vh-8rem)]">
             {children}
           </main>
           <Footer />
