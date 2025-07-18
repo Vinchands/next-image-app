@@ -6,13 +6,13 @@ import { H3 } from '@/components/ui/typography'
 import type { ImageDetail } from '@/lib/definitions'
 
 type ImageGalleryProps = {
-  images: ImageDetail[]
+  images: ImageDetail[] | null
   limit?: number
 }
 
 export default function ImageGallery({ images }: ImageGalleryProps) {
   
-  if (!images.length) {
+  if (!images?.length) {
     return (
       <section className="p-5 text-center border rounded-2xl">
         <H3 className="mb-3 rounded-2xl">There are no images yet ☹️</H3>
