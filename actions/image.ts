@@ -50,8 +50,8 @@ export async function uploadImage(state: FormState, formData: FormData) {
   const uploadOptions: PutCommandOptions = { access: 'public', addRandomSuffix: true }
   
   const [preview, download] = await Promise.all([
-    put(`images/${file.name}_preview`, previewImageBuffer, uploadOptions),
-    put(`images/${file.name}_download`, originalBuffer, uploadOptions)
+    put(`images/preview/${file.name}`, previewImageBuffer, uploadOptions),
+    put(`images/download/${file.name}`, originalBuffer, uploadOptions)
   ])
   
   await prisma.image.create({
@@ -85,12 +85,12 @@ export async function toggleLike(userId: string, imageId: string) {
       }
     })
     
-    return { like: false }
+    return { liked: false }
   }
   
   await prisma.like.create({
     data: { userId, imageId }
   })
   
-  return { like: true }
+  return { liked: true }
 }
