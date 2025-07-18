@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { createSession, deleteSession } from '@/lib/auth/session'
 import { parseToken } from '@/lib/auth/jwt'
 
-const protectedRoutes = ['/profile', '/upload']
+const protectedRoutes = ['/profile', '/upload', '/images/me']
 const publicRoutes = ['/sign-up', '/sign-in']
 
 export default async function middleware(req: NextRequest) {
