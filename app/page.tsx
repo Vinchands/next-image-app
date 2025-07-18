@@ -30,7 +30,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ [
   return (
     <>
       <Hero />
-      <Container size="xl" className="py-5">
+      <Container className="py-5">
         <ExploreHeader />
         <ImageGallery images={images} />
       </Container>
