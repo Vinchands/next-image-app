@@ -1,6 +1,6 @@
 'use client'
 import Link from 'next/link'
-import LikeButton from '@/components/ui/LikeButton'
+import LikeButton from '@/components/shared/LikeButton'
 import DownloadButton from '@/components/shared/DownloadButton'
 import AuthComponent from '@/components/ui/AuthComponent'
 import { Button } from '@/components/ui/button'
