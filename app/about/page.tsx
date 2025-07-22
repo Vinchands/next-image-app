@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import Hero from './Hero'
 import { ArrowRight, HandHeart } from 'lucide-react'
+import Image from 'next/image'
 
 export default function About() {
   return (
@@ -60,10 +61,22 @@ export default function About() {
               Upload now <ArrowRight />
             </Link>
           </Button>
-          <Button variant="destructive" size="lg" asChild>
-            <Link href="https://trakteer.id/vinchands-id/tip" target="_blank">
-              <HandHeart /> Donate me
-            </Link>
+          <Button variant="ghost" size="lg" className="p-0" asChild>
+            <a href="https://trakteer.id/vinchands-id/tip" target="_blank">
+              <Image
+                id="wse-buttons-preview"
+                src="https://edge-cdn.trakteer.id/images/embed/trbtn-red-1.png?v=14-05-2025"
+                alt="Trakteer Button"
+                width={100}
+                height={50}
+                style={{
+                  border: 0,
+                  width: 'auto',
+                  height: '3rem'
+                }}
+                className="animate-pulse hover:animate-none"
+              />
+            </a>
           </Button>
         </div>
       </Container>
