@@ -8,6 +8,7 @@ import { useState, useEffect, useActionState } from 'react'
 import { uploadImage } from '@/actions/image'
 import { LoaderCircle } from 'lucide-react'
 import { toast } from 'sonner'
+import Dropzone from './Dropzone'
 
 export default function UploadForm() {
   
@@ -47,8 +48,8 @@ export default function UploadForm() {
   }, [state])
   
   return (
-    <form action={action} className="grid grid-cols-1 md:grid-cols-12 items-center gap-5 py-5">
-      <input type="hidden" name="userId" value={user?.id} />
+    <form action={action} className="grid grid-cols-1 items-center gap-5 py-5">
+      {/* <input type="hidden" name="userId" value={user?.id} />
       {
         previewUrl? (
           <div className="relative col-span-4 aspect-square bg-secondary border rounded-2xl overflow-hidden">
@@ -91,7 +92,8 @@ export default function UploadForm() {
             ) : 'Upload'
           }
         </Button>
-      </div>
+      </div> */}
+      <Dropzone required />
     </form>
   )
 }
