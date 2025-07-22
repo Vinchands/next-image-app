@@ -15,34 +15,7 @@ import {
 import { usePathname } from 'next/navigation'
 import { useCallback } from 'react'
 import { Ellipsis } from 'lucide-react'
-
-const links = [
-  {
-    name: 'Discover',
-    alias: 'Discover',
-    href: '/images',
-  },
-  {
-    name: 'License',
-    alias: 'License',
-    href: '/license',
-  },
-  {
-    name: 'Report Issue',
-    alias: 'Report',
-    href: '/report',
-  },
-  {
-    name: 'About Us',
-    alias: 'About',
-    href: '/about',
-  },
-  {
-    name: 'Terms of Service',
-    alias: 'Terms',
-    href: '/tos',
-  }
-]
+import { links } from '@/lib/data'
 
 export default function MainNavigation() {
   
@@ -54,17 +27,18 @@ export default function MainNavigation() {
   
   return (
     <nav className="flex items-center gap-x-3">
-      {
-        links.slice(0, 2).map(link => (
-          <Link
-            key={link.name}
-            href={link.href}
-            className={`max-sm:not-first:hidden ${isActive(link.href)? 'font-bold pointer-events-none' : 'font-medium'} hover:font-bold`}
-          >
-            {link.name}
-          </Link>
-        ))
-      }
+      <Link
+        href="/images"
+        className={`${isActive('/images')? 'font-bold pointer-events-none' : 'font-medium'} hover:font-bold`}
+      >
+        Discover
+      </Link>
+      <Link
+        href="/license"
+        className={`hidden sm:inline ${isActive('/license')? 'font-bold pointer-events-none' : 'font-medium'} hover:font-bold`}
+      >
+        License
+      </Link>
       <AuthComponent
         onAuth={user => (
           <>
@@ -113,7 +87,7 @@ export default function MainNavigation() {
               }
             />
             {
-              links.map(link => (
+              [...links.main.slice(1), ...links.misc, ...links.legal].map(link => (
                 <DropdownMenuItem key={link.name} asChild>
                   <Link href={link.href}>{link.name}</Link>
                 </DropdownMenuItem>
