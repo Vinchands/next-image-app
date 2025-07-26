@@ -1,19 +1,28 @@
-import { useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
-export default function useImageDropzone(onFileAccepted?: (file: File) => void) {
+export default function useImageDropzone(onFileAccepted: (file: File | null) => void) {
   
   const inputRef = useRef<HTMLInputElement>(null)
   const [isDragging, setIsDragging] = useState(false)
-  const [imagePreviewURL, setImagePreviewURL] = useState<string | null>(null)
+  const [acceptedFile, setAcceptedFile] = useState<File | null>(null)
+  const imagePreviewURL = useMemo(() => acceptedFile? URL.createObjectURL(acceptedFile) : null, [acceptedFile])
   
-  function acceptFile(file: File) {
-    const url = URL.createObjectURL(file)
-    setImagePreviewURL(url)
+  // ! WARNING: This function is still in controversy
+  const forceChangeInput = useCallback((file: File) => {
+    if (inputRef.current) {
+      const dataTransfer = new DataTransfer
+      dataTransfer.items.add(file)
+      inputRef.current.files = dataTransfer.files
+    }
+  }, [])
     
-    onFileAccepted?.(file)
-  }
+  const acceptFile = useCallback((file: File) => {
+    setAcceptedFile(file)
+    onFileAccepted(file)
+  }, [onFileAccepted])
   
-  function handleDragOver(e: React.DragEvent<HTMLDivElement>) {
+  // Drag and drop handlers
+  const handleDragOver = useCallback((e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault()
     e.stopPropagation()
     
@@ -24,39 +33,58 @@ export default function useImageDropzone(onFileAccepted?: (file: File) => void) 
     }
     
     setIsDragging(true)
-  }
+  }, [])
   
-  function handleDragLeave(e: React.DragEvent<HTMLDivElement>) {
+  const handleDragLeave = useCallback((e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault()
     e.stopPropagation()
     setIsDragging(false)
-  }
+  }, [])
   
-  function handleDrop(e: React.DragEvent<HTMLDivElement>) {
+  const handleDrop = useCallback((e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault()
     e.stopPropagation()
     
     const file = e.dataTransfer.files[0]
     if (!file || file.size === 0 || !file.type.startsWith('image/')) return
     
+    setAcceptedFile(file)
     setIsDragging(false)
     acceptFile(file)
-  }
+  }, [acceptFile])
   
-  function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
+  // Hidden input handlers
+  const handleInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    
+    if (acceptedFile) forceChangeInput(acceptedFile)
+    
     const file = e.target.files?.[0]
-    if (!file || file.size === 0) return
+    if (!file || file.size === 0 || !file.type.startsWith('image/')) return
     acceptFile(file)
-  }
+  }, [acceptedFile, acceptFile, forceChangeInput])
+  
+  const handleReset = useCallback(() => {
+    if (inputRef.current) {
+      inputRef.current.value = ''
+      inputRef.current.files = null
+    }
+    
+    setAcceptedFile(null)
+    onFileAccepted(null)
+  }, [onFileAccepted])
+  
+  useEffect(() => {
+    if (acceptedFile) forceChangeInput(acceptedFile)
+  }, [acceptedFile, forceChangeInput])
   
   return {
     inputRef,
     isDragging,
     imagePreviewURL,
-    setImagePreviewURL,
     handleDragOver,
     handleDragLeave,
     handleDrop,
     handleInputChange,
+    handleReset
   }
 }
