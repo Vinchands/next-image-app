@@ -22,6 +22,7 @@ const UploadImageSchema = z.object({
   title: z.string().min(1, 'Title is required'),
   file: z
     .instanceof(File)
+    .refine(file => file.type.startsWith('image/'), 'File must be an image')
     .refine(file => file.size > 0, 'File is required')
     .refine(file => file.size <= 10 * 1024 * 1024, 'File size must be less than 10MB')
 })
