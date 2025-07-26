@@ -4,6 +4,11 @@ import Link from 'next/link'
 import { H1, Lead } from '@/components/ui/typography'
 import { Button } from '@/components/ui/button'
 import { CheckCircle } from 'lucide-react'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Upload'
+}
 
 const rules = [
   'Original content only',

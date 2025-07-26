@@ -2,6 +2,11 @@ import Container from '@/components/ui/container'
 import { H1 } from '@/components/ui/typography'
 import { getAuthUser } from '@/lib/dal/user.dal'
 import { toSafeUser } from '@/lib/dto/user.dto'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Profile'
+}
 
 export default async function Profile() {
   

@@ -2,6 +2,11 @@ import Container from '@/components/ui/container'
 import ImageGallery from '@/components/shared/ImageGallery'
 import { H1 } from '@/components/ui/typography'
 import { getUserImages } from '@/lib/dal/image.dal'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'My Gallery'
+}
 
 export default async function Me() {
   
