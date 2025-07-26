@@ -1,5 +1,10 @@
+import { Metadata } from 'next'
 import SignupForm from './SignupForm'
 import bg from '@/public/mountain.jpg'
+
+export const metadata: Metadata = {
+  title: 'Sign Up'
+}
 
 export default function Signup() {
   return (

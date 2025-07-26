@@ -1,5 +1,10 @@
+import { Metadata } from 'next'
 import ResetPasswordForm from './ResetPasswordForm'
 import bg from '@/public/river.jpg'
+
+export const metadata: Metadata = {
+  title: 'Forgot Password'
+}
 
 export default function ForgetPassword() {
   return (

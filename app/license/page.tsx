@@ -1,5 +1,10 @@
 import Container from '@/components/ui/container'
 import { H1, H3, P } from '@/components/ui/typography'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'License'
+}
 
 export default function License() {
   return (
