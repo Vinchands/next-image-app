@@ -2,6 +2,11 @@ import Container from '@/components/ui/container'
 import { H1, P } from '@/components/ui/typography'
 import ReportForm from './ReportForm'
 import bg from '@/public/office.png'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Report Issue'
+}
 
 export default function Report() {
   return (

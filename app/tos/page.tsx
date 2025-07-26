@@ -1,5 +1,10 @@
 import Container from '@/components/ui/container'
 import { H1, H2, P } from '@/components/ui/typography'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Terms of Service'
+}
 
 export default function Terms() {
   return (

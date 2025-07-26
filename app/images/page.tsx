@@ -3,6 +3,11 @@ import { H1 } from '@/components/ui/typography'
 import ImageGallery from '@/components/shared/ImageGallery'
 import SearchBar from '@/components/shared/SearchBar'
 import { getImages } from '@/lib/dal/image.dal'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Discover'
+}
 
 export default async function Images() {
   

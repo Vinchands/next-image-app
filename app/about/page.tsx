@@ -3,8 +3,13 @@ import { H1, H2, P } from '@/components/ui/typography'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import Hero from './Hero'
-import { ArrowRight, HandHeart } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 import Image from 'next/image'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'About Us'
+}
 
 export default function About() {
   return (
