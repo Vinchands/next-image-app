@@ -5,13 +5,13 @@ import { Button } from '@/components/ui/button'
 import { ArrowBigDown, ImageIcon } from 'lucide-react'
 import useImageDropzone from './useImageDropzone'
 
-type DropzoneProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type' | 'accept' | 'className' | 'onChange' | 'hidden'> & {
-  onFileAccepted?: (file: File) => void
+type DropzoneProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type' | 'accept' | 'onChange' | 'hidden'> & {
+  onFileAccepted: (file: File | null) => void
 }
 
 export default function ImageDropzone({ onFileAccepted, ...inputProps }: DropzoneProps) {
   
-  const { inputRef, isDragging, imagePreviewURL, setImagePreviewURL, handleDragOver, handleDragLeave, handleDrop, handleInputChange } = useImageDropzone(onFileAccepted)
+  const { inputRef, isDragging, imagePreviewURL, handleDragOver, handleDragLeave, handleDrop, handleInputChange, handleReset } = useImageDropzone(onFileAccepted)
   const dropzoneContent = isDragging? (
     <>
       <ArrowBigDown size={64} className="stroke-1 stroke-primary animate-bounce" />
@@ -25,11 +25,6 @@ export default function ImageDropzone({ onFileAccepted, ...inputProps }: Dropzon
     </>
   )
   
-  function handleReset() {
-    setImagePreviewURL(null)
-    onFileAccepted?.(null as unknown as File)
-  }
-  
   return (
     <div
       className={`w-full flex flex-col items-center gap-y-3 p-3 border-4 border-dashed ${isDragging? 'border-primary bg-primary/10' : 'border-primary/25'} rounded-2xl`}
@@ -42,7 +37,7 @@ export default function ImageDropzone({ onFileAccepted, ...inputProps }: Dropzon
         type="file"
         accept="image/*"
         onChange={handleInputChange}
-        hidden
+        // hidden
         {...inputProps}
       />
       {
