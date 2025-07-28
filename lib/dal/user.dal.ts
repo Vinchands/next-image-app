@@ -2,7 +2,7 @@ import 'server-only'
 import { parseToken } from '@/lib/auth/jwt'
 import { cache } from 'react'
 import { cookies } from 'next/headers'
-import prisma from '../prisma'
+import prisma from '@/lib/prisma'
 
 export const verifySession = cache(async () => {
   const token = (await cookies()).get('access-token')?.value
