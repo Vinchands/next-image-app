@@ -16,6 +16,7 @@ datasource db {
 model User {
   id        String   @id @default(ulid())
   name      String
+  username  String   @unique
   bio       String?
   email     String   @unique
   password  String
@@ -31,6 +32,7 @@ model User {
 model Image {
   id          String   @id @default(ulid())
   title       String
+  description String?
   blurUrl     String
   previewUrl  String
   downloadUrl String
