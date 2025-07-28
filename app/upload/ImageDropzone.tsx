@@ -37,7 +37,7 @@ export default function ImageDropzone({ onFileAccepted, ...inputProps }: Dropzon
         type="file"
         accept="image/*"
         onChange={handleInputChange}
-        // hidden
+        hidden
         {...inputProps}
       />
       {
