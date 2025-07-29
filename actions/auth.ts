@@ -4,6 +4,7 @@ import bcrypt from 'bcrypt'
 import prisma from '@/lib/prisma'
 import { createSession, deleteSession } from '@/lib/auth/session'
 import { redirect } from 'next/navigation'
+import { generateUniqueUsername } from '@/lib/utils'
 
 export type FormState =
   | {
@@ -26,6 +27,7 @@ const SignupSchema = z.object({
   name: z
     .string()
     .min(2, { message: 'Name must be at least 2 characters long.' })
+    .regex(/^[A-Za-z\s]+$/, { message: 'Name must contain only letters.' })
     .trim(),
   email: z
     .string()
@@ -52,6 +54,7 @@ export async function signup(state: FormState, formData: FormData) {
   }
   
   const { name, email, password } = validation.data
+  const username = generateUniqueUsername(name)
   
   const user = await prisma.user.findFirst({
     where: { email }
@@ -68,7 +71,7 @@ export async function signup(state: FormState, formData: FormData) {
   const passwordHash = await bcrypt.hash(password, 10)
   const newUser = await prisma.user.create({
     data: {
-      name, email, password: passwordHash
+      name, username, email, password: passwordHash
     }
   })
   
