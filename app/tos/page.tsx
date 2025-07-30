@@ -11,7 +11,7 @@ export default function Terms() {
     <Container size="lg" className="space-y-6 py-8">
       <H1>Terms of Service</H1>
 
-      <P>Last updated: July 9, 2025</P>
+      <P>Last updated: July 30, 2025</P>
 
       <P>
         Welcome to Imagenation. These Terms of Service (&quot;Terms&quot;) govern your access to and use of the Imagenation website, services, and applications (collectively, the &quot;Service&quot;). By accessing or using the Service, you agree to be bound by these Terms. If you do not agree, please do not use our Service.
@@ -42,27 +42,32 @@ export default function Terms() {
         You agree not to use the Service for any unlawful purpose or in any way that may damage or impair the Service. This includes but is not limited to: spamming, uploading malicious code, infringing intellectual property, or attempting to bypass security measures.
       </P>
 
-      <H2>6. Termination</H2>
+      <H2>6. Resource Limitations and Data Responsibility</H2>
+      <P>
+        The resources used to build and operate this application are very limited. As such, you should not rely on Imagenation as your main or sole source for storing or managing important data. We are not responsible for any data loss or corruption that may occur while using the Service.
+      </P>
+
+      <H2>7. Termination</H2>
       <P>
         Imagenation may suspend or terminate your access to the Service at any time, without notice or liability, for any reason, including if you violate these Terms. Upon termination, all rights granted to you under these Terms will cease.
       </P>
 
-      <H2>7. Disclaimer of Warranties</H2>
+      <H2>8. Disclaimer of Warranties</H2>
       <P>
         The Service is provided &quot;as is&quot; and &quot;as available&quot; without warranties of any kind, either express or implied. Imagenation does not guarantee the accuracy, availability, or reliability of any content.
       </P>
 
-      <H2>8. Limitation of Liability</H2>
+      <H2>9. Limitation of Liability</H2>
       <P>
         To the maximum extent permitted by law, Imagenation shall not be liable for any indirect, incidental, special, or consequential damages arising out of or related to your use of the Service.
       </P>
 
-      <H2>9. Changes to the Terms</H2>
+      <H2>10. Changes to the Terms</H2>
       <P>
         We may revise these Terms from time to time. If we make material changes, we will notify you by email or through the Service. By continuing to use the Service after the changes become effective, you agree to be bound by the updated Terms.
       </P>
 
-      <H2>10. Contact Us</H2>
+      <H2>11. Contact Us</H2>
       <P>
         If you have any questions about these Terms, please contact us at support@imagenation.com.
       </P>
