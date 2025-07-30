@@ -78,7 +78,7 @@ export async function signup(state: FormState, formData: FormData) {
   await createSession(newUser.id, 'refresh')
   await createSession(newUser.id, 'access')
   
-  redirect('/profile')
+  redirect(`/profile/${newUser.username}`)
 }
 
 
@@ -126,7 +126,7 @@ export async function signin(state: FormState, formData: FormData) {
   await createSession(user.id, 'refresh')
   await createSession(user.id, 'access')
   
-  redirect('/profile')
+  redirect(`/profile/${user.username}`)
 }
 
 export async function signout() {
