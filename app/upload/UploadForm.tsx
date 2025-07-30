@@ -37,7 +37,7 @@ export default function UploadForm() {
   }, [state])
   
   return (
-    <form ref={formRef} action={action} className="grid grid-cols-1 md:grid-cols-2 items-center gap-3">
+    <form ref={formRef} action={action} className="grid grid-cols-1 md:grid-cols-2 items-center gap-8">
       <input type="hidden" name="userId" value={user?.id} />
       <div className={`${file? '' : 'col-span-full'} space-y-2`}>
         <ImageDropzone name="file" onFileAccepted={handleFileAccepted} required />
@@ -56,12 +56,13 @@ export default function UploadForm() {
           />
           {state?.errors?.title && <p className="text-sm text-destructive">{state.errors.title[0]}</p>}
         </div>
-        <div className="hidden space-y-2">
+        <div className="space-y-2">
           <Label>Description</Label>
           <Textarea
             name="description"
             className="bg-white field-sizing-fixed resize-none"
-            rows={3}
+            rows={5}
+            placeholder="Optional"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />

@@ -1,5 +1,4 @@
 import prisma from '@/lib/prisma'
-import type { ImageDetail } from '@/lib/definitions'
 import type { Prisma } from '@prisma/client'
 import { getAuthUser } from './user.dal'
 import { cache } from 'react'

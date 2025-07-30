@@ -2,7 +2,8 @@ import 'server-only'
 import { parseToken } from '@/lib/auth/jwt'
 import { cache } from 'react'
 import { cookies } from 'next/headers'
-import prisma from '../prisma'
+import prisma from '@/lib/prisma'
+import { Prisma } from '@prisma/client'
 
 export const verifySession = cache(async () => {
   const token = (await cookies()).get('access-token')?.value
@@ -13,19 +14,28 @@ export const verifySession = cache(async () => {
   return { isAuth: true, userId: payload?.userId }
 })
 
-export const getAuthUser = cache(async () => {
+export const getAuthUser = cache(async (options?: { include: Prisma.UserInclude }) => {
   const session = await verifySession()
   if (!session) return null
   
   try {
     const user = await prisma.user.findFirst({
-      where: {
-        id: session.userId
-      }
+      where: { id: session.userId },
+      omit: { password: true },
+      ...options
     })
     return user
   } catch (err) {
     console.error('Failed to get user data', err)
     return null
   }
+})
+
+type GetUserOptions = Prisma.UserFindFirstArgs & {
+  where: Prisma.UserFindFirstArgs['where']
+}
+
+export const getUser = cache(async (options?: GetUserOptions) => {
+  const user = await prisma.user.findFirst(options)
+  return user
 })

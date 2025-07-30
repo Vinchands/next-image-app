@@ -16,6 +16,7 @@ datasource db {
 model User {
   id        String   @id @default(ulid())
   name      String
+  username  String   @unique
   bio       String?
   email     String   @unique
   password  String
@@ -24,6 +25,8 @@ model User {
   updatedAt DateTime @default(now()) @updatedAt
   images    Image[]
   likes     Like[]
+  followers Follow[] @relation("UserFollowers")
+  following Follow[] @relation("UserFollowing")
 
   @@map("users")
 }
@@ -31,6 +34,7 @@ model User {
 model Image {
   id          String   @id @default(ulid())
   title       String
+  description String?
   blurUrl     String
   previewUrl  String
   downloadUrl String
@@ -56,4 +60,18 @@ model Like {
 
   @@unique([userId, imageId])
   @@map("likes")
+}
+
+model Follow {
+  id String @id @default(ulid())
+  followerId String
+  followingId String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+  
+  follower User @relation(name: "UserFollowing", fields: [followerId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  following User @relation(name: "UserFollowers", fields: [followingId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  
+  @@unique([followerId, followingId])
+  @@map("follows")
 }
