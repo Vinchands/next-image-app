@@ -13,26 +13,22 @@ import { getInitials } from '@/lib/utils'
 import { SafeUser } from '@/lib/definitions'
 import icon from '@/public/user.png'
 
-export default function UserAvatar({ user }: { user:  SafeUser }) {
-  
-  const { name, email, photoUrl } = user
-  
-  return (
+export default function UserAvatar({ user }: { user:  SafeUser }) {return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Avatar>
-          <AvatarImage src={photoUrl || icon.src} />
-          <AvatarFallback>{getInitials(name)}</AvatarFallback>
+          <AvatarImage src={user.photoUrl || icon.src} />
+          <AvatarFallback>{getInitials(user.name)}</AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuLabel>
-          <p className="font-bold">{name}</p>
-          <span className="text-sm text-muted-foreground">{email}</span>
+          <p className="font-bold">{user.name}</p>
+          <span className="text-sm text-muted-foreground">{user.email}</span>
         </DropdownMenuLabel>
         <DropdownMenuGroup>
           <DropdownMenuItem asChild>
-            <Link href="/profile">Profile</Link>
+            <Link href={`/profile/${user.username}`}>Profile</Link>
           </DropdownMenuItem>
           <DropdownMenuItem variant="destructive" asChild>
             <SignoutButton>Sign out</SignoutButton>
