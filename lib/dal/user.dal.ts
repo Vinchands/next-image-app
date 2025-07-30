@@ -30,3 +30,12 @@ export const getAuthUser = cache(async (options?: { include: Prisma.UserInclude 
     return null
   }
 })
+
+type GetUserOptions = Prisma.UserFindFirstArgs & {
+  where: Prisma.UserFindFirstArgs['where']
+}
+
+export const getUser = cache(async (options?: GetUserOptions) => {
+  const user = await prisma.user.findFirst(options)
+  return user
+})
