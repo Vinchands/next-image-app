@@ -1,10 +1,11 @@
+import Hero from './Hero'
 import Container from '@/components/ui/container'
+import TextLink from '@/components/ui/TextLink'
+import Link from 'next/link'
+import Image from 'next/image'
 import { H1, H2, P } from '@/components/ui/typography'
 import { Button } from '@/components/ui/button'
-import Link from 'next/link'
-import Hero from './Hero'
 import { ArrowRight } from 'lucide-react'
-import Image from 'next/image'
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -18,15 +19,10 @@ export default function About() {
       <Container size="lg" className="space-y-6 py-8">
         <H1>About Us</H1>
         <P>
-          Imagenation is an image sharing platform mainly inspired by{' '}
-          <Button variant="link" className="p-0 text-base" asChild>
-            <Link href="https://www.pexels.com" target="_blank">Pexels</Link>
-          </Button>
-          {' '}and{' '}
-          <Button variant="link" className="p-0 text-base" asChild>
-            <Link href="https://unsplash.com" target="_blank">Unsplash</Link>
-          </Button>
-          , two of the biggest image sharing platforms in the world.
+          Imagenation is an image sharing platform mainly inspired by&nbsp;
+          <TextLink href="https://pexels.com" target="_blank" className="text-base">Pexels</TextLink> and&nbsp;
+          <TextLink href="https://unsplash.com" target="_blank" className="text-base">Unsplash</TextLink>,
+          two of the biggest image sharing platforms in the world.
         </P>
         
         <H2>Goals 🎯</H2>
@@ -39,20 +35,14 @@ export default function About() {
         <P>
           This project is available as open source.
           Everyone is welcome to contribute, report issues, request a feature, or send a feedback.
-          You can click{' '}
-          <Button variant="link" className="p-0 text-base" asChild>
-            <Link href="https://github.com/Vinchands/next-image-app" target="_blank">here</Link>
-          </Button>
-          {' '} for the source code.
+          You can click <TextLink href="https://github.com/Vinchands/next-image-app" target="_blank" className="text-base">here</TextLink> for the source code.
         </P>
         
         <H2>Team Behind 🧑🏻‍💻</H2>
         <P>
-          To be honest, this site is created alone by myself, Kevin. I developed this site as one of my portofolio projects. You can know more about me and my social media on my{' '}
-          <Button variant="link" className="p-0 text-base" asChild>
-            <Link href="https://github.com/Vinchands" target="_blank">GitHub</Link>
-          </Button>
-          .
+          To be honest, this site is created alone by myself, Kevin.
+          I developed this site as one of my portofolio projects.
+          You can know more about me and my social media on <TextLink href="https://github.com/Vinchands" target="_blank" className="text-base">my GitHub account</TextLink>.
         </P>
         
         <H2>Contribute 📸</H2>

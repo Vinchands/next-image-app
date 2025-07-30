@@ -1,5 +1,6 @@
 'use client'
 import Link from 'next/link'
+import TextLink from '@/components/ui/TextLink'
 import { Label } from '@/components/ui/label'
 import { Input } from '@/components/ui/input'
 import { PasswordInput } from '@/components/shared/PasswordInput'
@@ -59,16 +60,10 @@ export default function SignupForm() {
       </Button>
       <div className="space-y-3 text-center">
         <p className="text-sm text-muted-foreground">
-          By creating an account you agree to our{' '}
-          <Button variant="link" type="button" className="p-0" asChild>
-            <Link href="/tos">Terms of Service</Link>
-          </Button>
+          By creating an account you agree to our <TextLink href="/tos">Terms of Service</TextLink>
         </p>
         <p className="text-sm text-muted-foreground">
-          Have an account?{' '}
-          <Button variant="link" type="button" className="p-0" asChild>
-            <Link href="/sign-in">Sign in</Link>
-          </Button>
+          Have an account? <TextLink href="/sign-in">Sign in</TextLink>
         </p>
       </div>
     </form>

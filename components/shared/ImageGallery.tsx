@@ -1,7 +1,6 @@
-import Link from 'next/link'
 import RenderList from '@/components/ui/RenderList'
 import ImageCard from '@/components/shared/ImageCard'
-import { Button } from '@/components/ui/button'
+import TextLink from '@/components/ui/TextLink'
 import { H3 } from '@/components/ui/typography'
 import type { ImageDetail } from '@/lib/definitions'
 
@@ -17,11 +16,7 @@ export default function ImageGallery({ images }: ImageGalleryProps) {
       <section className="p-5 text-center border rounded-2xl">
         <H3 className="mb-3 rounded-2xl">There are no images yet ☹️</H3>
         <p className="text-muted-foreground">
-          Share your own or{' '}
-          <Button variant="link" className="p-0 text-base" asChild>
-            <Link href="/report">contact us</Link>
-          </Button>
-          {' '}if there is a problem.
+          Share your own or <TextLink href="/report" className="text-base">report to us</TextLink> if there is a problem.
         </p>
       </section>
     )

@@ -1,5 +1,5 @@
 'use client'
-import Link from 'next/link'
+import TextLink from '@/components/ui/TextLink'
 import { Label } from '@/components/ui/label'
 import { Input } from '@/components/ui/input'
 import { PasswordInput } from '@/components/shared/PasswordInput'
@@ -31,9 +31,7 @@ export default function SigninForm() {
       <div className="space-y-2">
         <Label>Password</Label>
         <PasswordInput name="password" required />
-        <Button variant="link" type="button" className="p-0" asChild>
-          <Link href="/forgot-password">Forgot password?</Link>
-        </Button>
+        <TextLink href="/forgot-password">Forgot password?</TextLink>
         {state?.errors.password && <p className="text-sm text-center text-destructive">{state.errors.password}</p>}
       </div>
       <Button type="submit" disabled={loading}>
@@ -46,10 +44,7 @@ export default function SigninForm() {
         }
       </Button>
       <p className="text-sm text-center text-muted-foreground">
-        Have no account?{' '}
-        <Button variant="link" type="button" className="p-0" asChild>
-          <Link href="/sign-up">Sign up</Link>
-        </Button>
+        Have no account? <TextLink href="/sign-up">Sign up</TextLink>
       </p>
     </form>
   )

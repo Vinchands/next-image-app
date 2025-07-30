@@ -1,8 +1,7 @@
 import Container from '@/components/ui/container'
 import UploadForm from './UploadForm'
-import Link from 'next/link'
+import TextLink from '@/components/ui/TextLink'
 import { H1, Lead } from '@/components/ui/typography'
-import { Button } from '@/components/ui/button'
 import { CheckCircle } from 'lucide-react'
 import { Metadata } from 'next'
 
@@ -17,12 +16,9 @@ const rules = [
   'Keep the file size reasonable',
   'Appropriate titles and descriptions',
   <>
-    Read our
-    <Button variant="link" className="h-fit p-0 m-0" asChild>
-      <Link href="/terms">
-        Terms of Service
-      </Link>
-    </Button>
+    <span>
+      Read our <TextLink href="/tos">Terms of Service</TextLink>
+    </span>
   </>
 ]
 
