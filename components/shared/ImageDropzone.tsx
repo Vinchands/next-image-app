@@ -16,7 +16,7 @@ export default function ImageDropzone({ name, required, onFileAccepted }: ImageD
   
   const inputRef = useRef<HTMLInputElement>(null)
   const [file, setFile] = useState<File | null>(null)
-  const imagePreviewUrl = file? URL.createObjectURL(file) : null
+  const [imagePreviewUrl, setImagePreviewUrl] = useState<string | null>(null)
   
   const forceChangeInput = useCallback((file: File) => {
     if (inputRef.current) {
@@ -51,13 +51,22 @@ export default function ImageDropzone({ name, required, onFileAccepted }: ImageD
       inputRef.current.value = ''
     }
     setFile(null)
-    handleDrop(null)
+    setImagePreviewUrl(null)
     onFileAccepted(null)
   }
   
   useEffect(() => {
     if (file) forceChangeInput(file)
   }, [file, forceChangeInput])
+
+  useEffect(() => {
+    if (!file) return
+    const url = URL.createObjectURL(file)
+    setImagePreviewUrl(url)
+    return () => {
+      URL.revokeObjectURL(url)
+    }
+  }, [file])
   
   return (
     <Dropzone onDrop={handleDrop} accept={['image/*']}>
@@ -87,7 +96,7 @@ export default function ImageDropzone({ name, required, onFileAccepted }: ImageD
             accept="image/*"
             onChange={handleChange}
             required={required}
-            hidden
+            style={{ display: 'none' }}
           />
           <div className="inline-flex items-center gap-x-2">
             <Button
