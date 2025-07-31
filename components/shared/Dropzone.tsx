@@ -26,10 +26,12 @@ export default function Dropzone({ onDrop, accept, children }: DropzoneProps) {
     
     const item = e.dataTransfer.items?.[0]
     
-    if (accept?.length && item?.type && !accept.includes(item?.type)) {
-      e.dataTransfer.effectAllowed = 'none'
-      setIsDragging(false)
-      return
+    if (item?.kind === 'file' && accept?.length) {
+      if (!isAcceptedType(item.type, accept)) {
+        e.dataTransfer.dropEffect = 'none'
+        setIsDragging(false)
+        return
+      }
     }
     
     setIsDragging(true)
@@ -46,10 +48,10 @@ export default function Dropzone({ onDrop, accept, children }: DropzoneProps) {
     e.stopPropagation()
     setIsDragging(false)
     
-    const file = e.dataTransfer?.files[0] || null
+    const file = e.dataTransfer.files?.[0]
     
     if (file && accept?.length) {
-      if (accept.includes(file.type)) return
+      if (!isAcceptedType(file.type, accept)) return
     }
     
     onDrop(file)
@@ -62,4 +64,14 @@ export default function Dropzone({ onDrop, accept, children }: DropzoneProps) {
   }), [handleDragOver, handleDragLeave, handleDrop])
   
   return children({ isDragging, getRootProps })
+}
+
+function isAcceptedType(type: string, accepted: string[]) {
+  return accepted.some((pattern) => {
+    if (pattern.endsWith('/*')) {
+      const base = pattern.slice(0, pattern.indexOf('/'))
+      return type.startsWith(base + '/')
+    }
+    return pattern === type
+  })
 }
