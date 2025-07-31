@@ -3,38 +3,70 @@ import Image from 'next/image'
 import Dropzone from '@/components/shared/Dropzone'
 import { H4 } from '@/components/ui/typography'
 import { Button } from '@/components/ui/button'
-import { useRef, useState } from 'react'
+import React, { useState, useEffect, useRef, useCallback } from 'react'
 import { ArrowBigDown, ImageIcon } from 'lucide-react'
 
-export default function ImageDropzone() {
+type ImageDropzoneProps = {
+  name?: string
+  required?: boolean
+  onFileAccepted: (file: File | null) => void
+}
+
+export default function ImageDropzone({ name, required, onFileAccepted }: ImageDropzoneProps) {
   
   const inputRef = useRef<HTMLInputElement>(null)
-  const [imagePreviewUrl, setImagePreviewUrl] = useState('')
+  const [file, setFile] = useState<File | null>(null)
+  const imagePreviewUrl = file? URL.createObjectURL(file) : null
   
-  function handleDrop(file: File | null) {
-    if (!file) {
-      setImagePreviewUrl('')
+  const forceChangeInput = useCallback((file: File) => {
+    if (inputRef.current) {
+      const dataTransfer = new DataTransfer
+      dataTransfer.items.add(file)
+      inputRef.current.files = dataTransfer.files
+    }
+  }, [])
+  
+  function handleDrop(acceptedFile: File | null) {
+    if (!acceptedFile) return
+    
+    setFile(acceptedFile)
+    onFileAccepted(acceptedFile)
+  }
+  
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+    if (file) {
+      forceChangeInput(file)
       return
     }
     
-    const url = URL.createObjectURL(file)
-    setImagePreviewUrl(url)
+    const acceptedFile = e.target.files?.[0]
+    if (!acceptedFile) return
+    
+    handleDrop(acceptedFile)
   }
   
   function handleReset() {
-    if (inputRef.current) inputRef.current.files = null
-    setImagePreviewUrl('')
+    if (inputRef.current) {
+      inputRef.current.files = null
+      inputRef.current.value = ''
+    }
+    setFile(null)
     handleDrop(null)
+    onFileAccepted(null)
   }
+  
+  useEffect(() => {
+    if (file) forceChangeInput(file)
+  }, [file, forceChangeInput])
   
   return (
     <Dropzone onDrop={handleDrop} accept={['image/*']}>
       {({ isDragging, getRootProps }) => (
         <div
           {...getRootProps()}
-          className={`w-full flex flex-col items-center gap-y-3 p-3 border-4 border-dashed ${isDragging? 'border-primary bg-primary/10' : 'border-primary/25'} rounded-2xl`}
+          className={`w-full min-h-56 flex flex-col items-center justify-center gap-y-3 p-3 border-4 border-dashed ${isDragging? 'border-primary bg-primary/10' : 'border-primary/25'} rounded-2xl`}
         >
-          {imagePreviewUrl? <Image src={imagePreviewUrl} alt="Preview" width={500} height={500} /> : (
+          {imagePreviewUrl? <Image src={imagePreviewUrl} alt="Preview" width={500} height={500} className="w-auto h-auto" /> : (
             isDragging? (
               <>
                 <ArrowBigDown size={64} className="stroke-1 stroke-primary animate-bounce" />
@@ -48,12 +80,20 @@ export default function ImageDropzone() {
               </>
             )
           )}
-          <input ref={inputRef} type="file" name="file" />
+          <input
+            ref={inputRef}
+            type="file"
+            name={name}
+            accept="image/*"
+            onChange={handleChange}
+            required={required}
+            hidden
+          />
           <div className="inline-flex items-center gap-x-2">
             <Button
               type="button"
               onClick={() => inputRef.current?.click()}
-              disabled={isDragging}
+              hidden={isDragging}
             >
               Browse
             </Button>
