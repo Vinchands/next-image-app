@@ -29,13 +29,13 @@ export default function MainNavigation() {
     <nav className="flex items-center gap-x-3">
       <Link
         href="/images"
-        className={`${isActive('/images')? 'font-bold pointer-events-none' : 'font-medium'} hover:font-bold`}
+        className={`${isActive('/images')? 'text-muted-foreground pointer-events-none' : 'font-medium'} hover:underline`}
       >
         Discover
       </Link>
       <Link
         href="/license"
-        className={`hidden sm:inline ${isActive('/license')? 'font-bold pointer-events-none' : 'font-medium'} hover:font-bold`}
+        className={`hidden sm:inline ${isActive('/license')? 'text-muted-foreground pointer-events-none' : 'font-medium'} hover:underline`}
       >
         License
       </Link>
