@@ -16,7 +16,7 @@ export default function ImageGallery({ images }: ImageGalleryProps) {
       <section className="p-5 text-center border rounded-2xl">
         <H3 className="mb-3 rounded-2xl">There are no images yet ☹️</H3>
         <p className="text-muted-foreground">
-          Share your own or <TextLink href="/report" className="text-base">report to us</TextLink> if there is a problem.
+          Please <TextLink href="/report" className="text-base">report to us</TextLink> if there is a problem.
         </p>
       </section>
     )
