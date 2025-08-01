@@ -1,18 +1,21 @@
 'use client'
+import { Button } from '@/components/ui/button'
 import { useRouter } from 'next/navigation'
 import { useSession } from '@/hooks/useSession'
-import { Heart } from 'lucide-react'
 import { useMemo, useOptimistic, useTransition } from 'react'
-import { type ImageDetail } from '@/lib/definitions'
 import { cn } from '@/lib/utils'
 import { toggleLike } from '@/actions/image'
+import { type ImageDetail } from '@/lib/definitions'
 
 type LikeButtonProps = {
   image: ImageDetail
-  className?: string
+  variant?: 'default' | 'link' | 'destructive' | 'outline' | 'secondary' | 'ghost'
+  size?: 'default' | 'sm' | 'lg' | 'icon'
+  className?: (liked?: boolean) => string
+  children: (liked?: boolean) => React.ReactNode
 }
 
-export default function LikeButton({ image, className }: LikeButtonProps) {
+export default function LikeButton({ image, variant, size, className, children }: LikeButtonProps) {
   
   const { user } = useSession()
   
@@ -38,13 +41,15 @@ export default function LikeButton({ image, className }: LikeButtonProps) {
   }
   
   return (
-    <button
-      className={cn('p-1 rounded-full', priorLike? 'hover:bg-white' : 'hover:bg-destructive', loading && 'pointer-events-none animate-like', className)}
+    <Button
+      variant={variant}
+      size={size}
+      className={cn(priorLike? 'hover:bg-white' : 'hover:bg-destructive', loading && 'pointer-events-none animate-like', className && className(priorLike))}
       title={priorLike? 'Unlike' : 'Like'}
       onClick={handleToggle}
       disabled={loading}
     >
-      <Heart className={`${priorLike? 'stroke-destructive fill-destructive' : 'stroke-white'}`} />
-    </button>
+      {children(priorLike)}
+    </Button>
   )
 }

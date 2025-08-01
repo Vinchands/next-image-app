@@ -1,15 +1,34 @@
 'use client'
-import { Download } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import { type ImageDetail } from '@/lib/definitions'
 import { cn } from '@/lib/utils'
+import { useRouter } from 'next/navigation'
 
-export default function DownloadButton({ className, onDownload }: { className?: string, onDownload: () => void }) {
+type DownloadButtonProps = {
+  image: ImageDetail
+  variant?: 'default' | 'link' | 'destructive' | 'outline' | 'secondary' | 'ghost'
+  size?: 'default' | 'sm' | 'lg' | 'icon'
+  className?: string
+  children: React.ReactNode
+}
+
+export default function DownloadButton({ image, variant, size, className, children }: DownloadButtonProps) {
+  
+  const router = useRouter()
+  
+  function handleClick() {
+    router.push(image.downloadUrl)
+  }
+  
   return (
-    <button
-      className={cn('p-1 hover:bg-primary rounded-full', className)}
+    <Button
+      variant={variant}
+      size={size}
+      className={cn('', className)}
       title="Download"
-      onClick={onDownload}
+      onClick={handleClick}
     >
-      <Download className="stroke-white" />
-    </button>
+      {children}
+    </Button>
   )
 }
