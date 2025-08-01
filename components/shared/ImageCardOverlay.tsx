@@ -26,7 +26,7 @@ export default function ImageCardOverlay({ image }: { image: ImageDetail }) {
         image={image}
         variant="ghost"
         size="icon"
-        className={() => 'absolute top-2 right-2 z-10 size-8 max-sm:hidden opacity-0 group-hover:opacity-100 rounded-full'}
+        className={() => 'absolute top-2 right-2 z-10 size-8 max-md:hidden opacity-0 group-hover:opacity-100 rounded-full'}
       >
         {liked => (
           <Heart className={`size-6 ${liked? 'stroke-destructive fill-destructive' : 'stroke-white'}`} />
@@ -35,13 +35,13 @@ export default function ImageCardOverlay({ image }: { image: ImageDetail }) {
       <DownloadButton
         image={image}
         variant="ghost"
-        className="absolute bottom-2 right-2 z-10 size-8 max-sm:hidden opacity-0 group-hover:opacity-100 rounded-full hover:bg-primary"
+        className="absolute bottom-2 right-2 z-10 size-8 max-md:hidden opacity-0 group-hover:opacity-100 rounded-full hover:bg-primary"
       >
         <Download className="size-6 stroke-white" />
       </DownloadButton>
       <Button
         variant="ghost"
-        className="absolute bottom-2 left-2 z-10 max-sm:hidden opacity-0 group-hover:opacity-100 p-1 text-white"
+        className="absolute bottom-2 left-2 z-10 max-md:hidden opacity-0 group-hover:opacity-100 p-1 text-white"
         onClick={handleClick}
       >
         <Avatar>
