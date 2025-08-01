@@ -45,44 +45,42 @@ export default function Footer() {
         <div className="col-span-full md:col-span-1">
           <p className="max-w-64 font-bold text-xl">Free and open source images for everyone.</p>
         </div>
-        <nav className="flex flex-col gap-y-2">
+        <nav className="flex flex-col gap-y-2 *:w-fit *:not-[h5]:hover:underline text-muted-foreground">
           <h5 className="font-bold text-primary">Main</h5>
-          {
-            links.main.map(link => (
-              <Link key={link.name} href={link.href}>{link.name}</Link>
-            ))
-          }
+          {links.main.map(link => (
+            <Link key={link.name} href={link.href}>
+              {link.name}
+            </Link>
+          ))}
         </nav>
-        <nav className="flex flex-col gap-y-2">
+        <nav className="flex flex-col gap-y-2 *:w-fit *:not-[h5]:hover:underline text-muted-foreground">
           <h5 className="font-bold text-primary">Legal</h5>
-          {
-            links.legal.map(link => (
-              <Link key={link.name} href={link.href}>{link.name}</Link>
-            ))
-          }
+          {links.legal.map(link => (
+            <Link key={link.name} href={link.href}>
+              {link.name}
+            </Link>
+          ))}
         </nav>
-        <nav className="flex flex-col gap-y-2">
+        <nav className="flex flex-col gap-y-2 *:w-fit *:not-[h5]:hover:underline text-muted-foreground">
           <h5 className="font-bold text-primary">Misc</h5>
-          {
-            links.misc.map(link => (
-              <Link key={link.name} href={link.href}>{link.name}</Link>
-            ))
-          }
+          {links.misc.map(link => (
+            <Link key={link.name} href={link.href}>
+              {link.name}
+            </Link>
+          ))}
         </nav>
       </div>
       <Separator />
-      <div className="flex items-center justify-between gap-x-3 py-5">
+      <div className="flex flex-col-reverse sm:flex-row items-center justify-between gap-3 py-5">
         <p className="text-muted-foreground">
           &copy; {year === 2025? '2025' : `2025-${year}`} Kevin CS
         </p>
         <div className="flex items-center gap-x-3">
-          {
-            socials.map(social => (
-              <Link key={social.name} href={social.href} target="_blank" title={social.name}>
-                <Image src={social.logo} alt={social.name} className="" />
-              </Link>
-            ))
-          }
+          {socials.map(social => (
+            <Link key={social.name} href={social.href} target="_blank" title={social.name}>
+              <Image src={social.logo} alt={social.name} />
+            </Link>
+          ))}
         </div>
       </div>
     </footer>
