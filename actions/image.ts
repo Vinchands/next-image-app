@@ -1,7 +1,8 @@
 'use server'
 import prisma from '@/lib/prisma'
 import { generateBlurDataUrl, resizeImage } from '@/lib/sharp'
-import { put, type PutCommandOptions } from '@vercel/blob'
+import { generateUniqueSlug } from '@/lib/utils'
+import { put, del, type PutCommandOptions } from '@vercel/blob'
 import { z } from 'zod'
 
 export type FormState =
@@ -37,6 +38,7 @@ export async function uploadImage(state: FormState, formData: FormData) {
   }
   
   const { file, title } = validation.data
+  const slug = generateUniqueSlug(title)
   const userId = formData.get('userId')
   
   // Convert file to buffer
@@ -48,22 +50,39 @@ export async function uploadImage(state: FormState, formData: FormData) {
   const blurImageUrl = await generateBlurDataUrl(originalBuffer)
   
   // Upload files
-  const uploadOptions: PutCommandOptions = { access: 'public', addRandomSuffix: true }
-  
-  const [preview, download] = await Promise.all([
-    put(`images/preview/${file.name}`, previewImageBuffer, uploadOptions),
-    put(`images/download/${file.name}`, originalBuffer, uploadOptions)
-  ])
-  
-  await prisma.image.create({
-    data: {
-      title,
-      blurUrl: blurImageUrl,
-      previewUrl: preview.url,
-      downloadUrl: download.url,
-      userId: userId as string
+  try {
+    const uploadOptions: PutCommandOptions = { access: 'public', addRandomSuffix: true }
+    const [preview, download] = await Promise.all([
+      put(`images/preview/${file.name}`, previewImageBuffer, uploadOptions),
+      put(`images/download/${file.name}`, originalBuffer, uploadOptions)
+    ])
+    
+    await prisma.image.create({
+      data: {
+        title,
+        slug,
+        blurUrl: blurImageUrl,
+        previewUrl: preview.url,
+        downloadUrl: download.url,
+        userId: userId as string
+      }
+    })
+  } catch (err) {
+    console.error('Error when uploading file:', err)
+    
+    if (file?.name) {
+      await Promise.allSettled([
+        del(`images/preview/${file.name}`),
+        del(`images/download/${file.name}`)
+      ])
     }
-  })
+    
+    return {
+      errors: {
+        file: ['Error when uploading image ☹️. Try again later.']
+      }
+    }
+  }
   
   return {
     success: {
