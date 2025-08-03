@@ -28,12 +28,12 @@ export default function UploadForm() {
   useEffect(() => {
     if (state?.success?.file) {
       toast.success(state.success.file[0])
-      formRef.current?.reset()
       
+      formRef.current?.reset()
       setTitle('')
       setDescription('')
       setFile(null)
-    }
+    } else if (state?.errors?.file) toast.error(state.errors.file[0])
   }, [state])
   
   return (
