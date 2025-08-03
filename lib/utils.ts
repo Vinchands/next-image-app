@@ -24,7 +24,7 @@ export function getInitials(name: string) {
   return cleanName.slice(0, 2).toUpperCase();
 }
 
-export function generateUniqueUsername(name: string) {
+export function generateUniqueSlug(name: string) {
   const n = name.trim().toLowerCase().replace(/\s+/g, '-')
   const t = performance.now().toString(36).replace('.', '').slice(-5)
   const r = crypto.getRandomValues(new Uint32Array(1))[0].toString(36).slice(-5)
