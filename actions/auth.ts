@@ -4,7 +4,7 @@ import bcrypt from 'bcrypt'
 import prisma from '@/lib/prisma'
 import { createSession, deleteSession } from '@/lib/auth/session'
 import { redirect } from 'next/navigation'
-import { generateUniqueUsername } from '@/lib/utils'
+import { generateUniqueSlug } from '@/lib/utils'
 
 export type FormState =
   | {
@@ -54,7 +54,7 @@ export async function signup(state: FormState, formData: FormData) {
   }
   
   const { name, email, password } = validation.data
-  const username = generateUniqueUsername(name)
+  const username = generateUniqueSlug(name)
   
   const user = await prisma.user.findFirst({
     where: { email }
