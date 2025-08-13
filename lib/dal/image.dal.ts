@@ -1,7 +1,8 @@
 import prisma from '@/lib/prisma'
-import type { Prisma } from '@prisma/client'
-import { getAuthUser } from './user.dal'
+import { getAuthUser } from '@/lib/dal/user.dal'
 import { cache } from 'react'
+import { type Prisma } from '@prisma/client'
+import { type ImageDetail } from '@/lib/definitions'
 
 type GetImagesOptions = Omit<Prisma.ImageFindManyArgs, 'include'>
 
@@ -39,4 +40,20 @@ export const getUserImages = cache(async (options?: GetUserImagesOptions) => {
   })
   
   return images
+})
+
+export const getImageBySlug = cache(async (slug: string): Promise<ImageDetail | null> => {
+  const image = await prisma.image.findFirst({
+    where: { slug },
+    include: {
+      user: {
+        omit: { password: true }
+      },
+      likes: true,
+      _count: {
+        select: { likes: true }
+      }
+    }
+  })
+  return image
 })
