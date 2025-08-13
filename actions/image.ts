@@ -21,6 +21,10 @@ export type FormState =
 
 const UploadImageSchema = z.object({
   title: z.string().min(1, 'Title is required'),
+  description: z
+    .string()
+    .max(250, 'Description must be less than 250 characters')
+    .optional(),
   file: z
     .instanceof(File)
     .refine(file => file.type.startsWith('image/'), 'File must be an image')
@@ -37,7 +41,7 @@ export async function uploadImage(state: FormState, formData: FormData) {
     }
   }
   
-  const { file, title } = validation.data
+  const { file, title, description } = validation.data
   const slug = generateUniqueSlug(title)
   const userId = formData.get('userId')
   
@@ -60,6 +64,7 @@ export async function uploadImage(state: FormState, formData: FormData) {
     await prisma.image.create({
       data: {
         title,
+        description,
         slug,
         blurUrl: blurImageUrl,
         previewUrl: preview.url,
