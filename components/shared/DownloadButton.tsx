@@ -1,7 +1,8 @@
 'use client'
 import { Button } from '@/components/ui/button'
-import { type ImageDetail } from '@/lib/definitions'
 import { cn } from '@/lib/utils'
+import { type ImageDetail } from '@/lib/definitions'
+import { getDownloadUrl } from '@vercel/blob'
 import { useRouter } from 'next/navigation'
 
 type DownloadButtonProps = {
@@ -17,7 +18,8 @@ export default function DownloadButton({ image, variant, size, className, childr
   const router = useRouter()
   
   function handleClick() {
-    router.push(image.downloadUrl)
+    const url = getDownloadUrl(image.downloadUrl)
+    router.push(url)
   }
   
   return (
